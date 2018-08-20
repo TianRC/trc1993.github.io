@@ -1100,7 +1100,7 @@ pre .javascript .function {
 }
 .back-to-top.back-to-top-on {
   bottom: 30px;
-  background: #27292a;
+  background: #00d7a4;
   opacity: 1;
 }
 .header {
@@ -2095,7 +2095,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #81c8ff;
+  background: #37cb75;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3272,12 +3272,12 @@ input::-moz-placeholder {
   padding: 40px;
   background: #fff;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
-  border-radius: initial;
+  border-radius: 8px;
 }
 #posts > article + article .post-block {
   margin-top: 12px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
-  border-radius: initial;
+  border-radius: 8px;
 }
 .comments {
   padding: 40px;
@@ -3305,7 +3305,7 @@ input::-moz-placeholder {
   border-top: initial;
   background: #fff;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
-  border-radius: initial;
+  border-radius: 4px;
   padding: 10px 0 10px;
 }
 .pagination .prev,
