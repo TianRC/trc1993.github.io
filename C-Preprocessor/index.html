@@ -119,18 +119,18 @@
 
 
 
-<meta name="description" content="C++ 重载运算符和重载函数  C++ 允许在同一作用域中的某个函数和运算符指定多个定义，分别称为函数重载和运算符重载。重载声明是指一个与之前已经在该作用域内声明过的函数或方法具有相同名称的声明，但是它们的参数列表和定义（实现）不相同。当您调用一个重载函数或重载运算符时，编译器通过把您所使用的参数类型与定义中的参数类型进行比较，决定选用最合适的定义。选择最合适的重载函数或重载运算符的过程，称为重载">
+<meta name="description" content="前言 预处理器是一些指令，指示编译器在实际编译之前所需完成的预处理。所有的预处理器指令都是以井号（#）开头，只有空格字符可以出现在预处理指令之前。预处理指令不是 C++ 语句，所以它们不会以分号（;）结尾。我们已经看到，之前所有的实例中都有 #include 指令。这个宏用于把头文件包含到源文件中。C++ 还支持很多预处理指令，比如 #include、#define、#if、#else、#line">
 <meta name="keywords" content="c#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++_OverLoaded">
-<meta property="og:url" content="http://localhost:8000/C-OverLoaded/index.html">
+<meta property="og:title" content="C++预处理器">
+<meta property="og:url" content="http://localhost:8000/C-Preprocessor/index.html">
 <meta property="og:site_name" content="TRC&#39;Blog">
-<meta property="og:description" content="C++ 重载运算符和重载函数  C++ 允许在同一作用域中的某个函数和运算符指定多个定义，分别称为函数重载和运算符重载。重载声明是指一个与之前已经在该作用域内声明过的函数或方法具有相同名称的声明，但是它们的参数列表和定义（实现）不相同。当您调用一个重载函数或重载运算符时，编译器通过把您所使用的参数类型与定义中的参数类型进行比较，决定选用最合适的定义。选择最合适的重载函数或重载运算符的过程，称为重载">
+<meta property="og:description" content="前言 预处理器是一些指令，指示编译器在实际编译之前所需完成的预处理。所有的预处理器指令都是以井号（#）开头，只有空格字符可以出现在预处理指令之前。预处理指令不是 C++ 语句，所以它们不会以分号（;）结尾。我们已经看到，之前所有的实例中都有 #include 指令。这个宏用于把头文件包含到源文件中。C++ 还支持很多预处理指令，比如 #include、#define、#if、#else、#line">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-20T03:15:26.375Z">
+<meta property="og:updated_time" content="2018-08-21T11:54:11.657Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++_OverLoaded">
-<meta name="twitter:description" content="C++ 重载运算符和重载函数  C++ 允许在同一作用域中的某个函数和运算符指定多个定义，分别称为函数重载和运算符重载。重载声明是指一个与之前已经在该作用域内声明过的函数或方法具有相同名称的声明，但是它们的参数列表和定义（实现）不相同。当您调用一个重载函数或重载运算符时，编译器通过把您所使用的参数类型与定义中的参数类型进行比较，决定选用最合适的定义。选择最合适的重载函数或重载运算符的过程，称为重载">
+<meta name="twitter:title" content="C++预处理器">
+<meta name="twitter:description" content="前言 预处理器是一些指令，指示编译器在实际编译之前所需完成的预处理。所有的预处理器指令都是以井号（#）开头，只有空格字符可以出现在预处理指令之前。预处理指令不是 C++ 语句，所以它们不会以分号（;）结尾。我们已经看到，之前所有的实例中都有 #include 指令。这个宏用于把头文件包含到源文件中。C++ 还支持很多预处理指令，比如 #include、#define、#if、#else、#line">
 
 
 
@@ -160,13 +160,13 @@
 
 
 
-  <link rel="canonical" href="http://localhost:8000/C-OverLoaded/"/>
+  <link rel="canonical" href="http://localhost:8000/C-Preprocessor/"/>
 
 
 
 
 
-  <title>C++_OverLoaded | TRC'Blog</title>
+  <title>C++预处理器 | TRC'Blog</title>
   
 
 
@@ -330,8 +330,8 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
   
   
   
-  <div class="post-block" href="/C-OverLoaded/>
-    <link itemprop="mainEntityOfPage" href="http://localhost:8000/C-OverLoaded/">
+  <div class="post-block" href="/C-Preprocessor/>
+    <link itemprop="mainEntityOfPage" href="http://localhost:8000/C-Preprocessor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TianRongChuang">
@@ -348,7 +348,7 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
 
         
         
-          <h1 class="post-title" itemprop="name headline">C++_OverLoaded</h1>
+          <h1 class="post-title" itemprop="name headline">C++预处理器</h1>
         
 
         <div class="post-meta">
@@ -360,8 +360,8 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T10:24:47+08:00">
-                2018-08-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-21T10:22:09+08:00">
+                2018-08-21
               </time>
             
 
@@ -420,94 +420,85 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
       
 
       
-        <h1 id="C-重载运算符和重载函数"><a href="#C-重载运算符和重载函数" class="headerlink" title="C++ 重载运算符和重载函数"></a>C++ 重载运算符和重载函数</h1><p><br></p>
-<blockquote>
-<p>C++ 允许在同一作用域中的某个<strong>函数</strong>和<strong>运算符</strong>指定多个定义，分别称为<strong>函数重载</strong>和<strong>运算符重载</strong>。<br>重载声明是指一个与之前已经在该作用域内声明过的函数或方法具有相同名称的声明，但是它们的参数列表和定义（实现）不相同。<br>当您调用一个<strong>重载函数</strong>或<strong>重载运算符</strong>时，编译器通过把您所使用的参数类型与定义中的参数类型进行比较，决定选用最合适的定义。选择最合适的<strong>重载函数</strong>或<strong>重载运算符</strong>的过程，称为<strong>重载决策</strong>。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>预处理器是一些指令，指示编译器在实际编译之前所需完成的预处理。<br>所有的预处理器指令都是以井号（<code>#</code>）开头，只有空格字符可以出现在预处理指令之前。预处理指令不是 C++ 语句，所以它们不会以分号（<code>;</code>）结尾。<br>我们已经看到，之前所有的实例中都有 <code>#include</code> 指令。这个宏用于把头文件包含到源文件中。<br>C++ 还支持很多预处理指令，比如 <code>#include</code>、<code>#define</code>、<code>#if</code>、<code>#else</code>、<code>#line</code> 等，让我们一起看看这些重要指令。</p>
 </blockquote>
 <a id="more"></a>
-<p><br></p>
-<h1 id="C-中的函数重载"><a href="#C-中的函数重载" class="headerlink" title="C++ 中的函数重载"></a>C++ 中的函数重载</h1><p><br></p>
-<blockquote>
-<p>在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同。您不能仅通过返回类型的不同来重载函数。<br>下面的实例中，同名函数 <strong>print()</strong> 被用于输出不同的数据类型：</p>
+<h1 id="define-预处理"><a href="#define-预处理" class="headerlink" title="define 预处理"></a>define 预处理</h1><blockquote>
+<p><code>#define</code> 预处理指令用于创建符号常量。该符号常量通常称为宏，指令的一般形式是：</p>
 </blockquote>
-<p><br></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">printData</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"整数为: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">double</span>  f)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"浮点数为: "</span> &lt;&lt; f &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">char</span> c[])</span> </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"字符串为: "</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   printData pd;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 输出整数</span></span><br><span class="line">   pd.print(<span class="number">5</span>);</span><br><span class="line">   <span class="comment">// 输出浮点数</span></span><br><span class="line">   pd.print(<span class="number">500.263</span>);</span><br><span class="line">   <span class="comment">// 输出字符串</span></span><br><span class="line">   <span class="keyword">char</span> c[] = <span class="string">"Hello C++"</span>;</span><br><span class="line">   pd.print(c);</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em><strong>Result:</strong></em></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">整数为: <span class="number">5</span></span><br><span class="line">浮点数为: <span class="number">500.263</span></span><br><span class="line">字符串为: Hello C++</span><br></pre></td></tr></table></figure>
-<h1 id="C-中的运算符重载"><a href="#C-中的运算符重载" class="headerlink" title="C++ 中的运算符重载"></a>C++ 中的运算符重载</h1><blockquote>
-<p>您可以重定义或重载大部分 C++ 内置的运算符。这样，您就能使用自定义类型的运算符。</p>
-<p>重载的运算符是带有特殊名称的函数，函数名是由关键字 <strong>operator</strong> 和其后要重载的运算符符号构成的。与其他函数一样，重载运算符有一个返回类型和一个参数列表。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> macro-name replacement-text</span></span><br></pre></td></tr></table></figure>
+<p>当这一行代码出现在一个文件中时，在该文件中后续出现的所有宏都将会在程序编译之前被替换为 replacement-text。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14159</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Value of PI :"</span> &lt;&lt; PI &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，让我们测试这段代码，看看预处理的结果。假设源代码文件已经存在，接下来使用 -E 选项进行编译，并把结果重定向到 test.p。现在，如果您查看 test.p 文件，将会看到它已经包含大量的信息，而且在文件底部的值被改为如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -E test.cpp &gt; test.p</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Value of PI :"</span> &lt;&lt; <span class="number">3.14159</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="参数宏"><a href="#参数宏" class="headerlink" title="参数宏"></a>参数宏</h1><blockquote>
+<p>您可以使用 <code>#define</code> 来定义一个带有参数的宏，如下所示：</p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Box <span class="keyword">operator</span>+(<span class="keyword">const</span> Box&amp;);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>声明加法运算符用于把两个 <code>Box</code> 对象相加，返回最终的 Box 对象。大多数的重载运算符可被定义为普通的非成员函数或者被定义为类成员函数。如果我们定义上面的函数为类的非成员函数，那么我们需要为每次操作传递两个参数，如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN(a,b) (a&lt;b ? a : b)</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> i, j;</span><br><span class="line">   i = <span class="number">100</span>;</span><br><span class="line">   j = <span class="number">30</span>;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt;<span class="string">"较小的值为："</span> &lt;&lt; MIN(i, j) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result</em></strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">较小的值为：<span class="number">30</span></span><br></pre></td></tr></table></figure>
+<h1 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h1><blockquote>
+<p>有几个指令可以用来有选择地对部分程序源代码进行编译。这个过程被称为条件编译。<br>  条件预处理器的结构与 if 选择结构很像。请看下面这段预处理器的代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> NULL</span></span><br><span class="line">   <span class="meta">#<span class="meta-keyword">define</span> NULL 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Box <span class="keyword">operator</span>+(<span class="keyword">const</span> Box&amp;, <span class="keyword">const</span> Box&amp;);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>下面的实例使用成员函数演示了运算符重载的概念。在这里，对象作为参数进行传递，对象的属性使用 this 运算符进行访问，如下所示：</p>
+<p>您可以只在调试时进行编译，调试开关可以使用一个宏来实现，如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DEBUG</span></span><br><span class="line">   <span class="built_in">cerr</span> &lt;&lt;<span class="string">"Variable x = "</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>如果在指令 <strong>#ifdef</strong> DEBUG 之前已经定义了符号常量 DEBUG，则会对程序中的 cerr 语句进行编译。您可以使用 #if 0 语句注释掉程序的一部分，如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">   不进行编译的代码</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>让我们尝试下面的实例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN(a,b) (((a)&lt;(b)) ? a : b)</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> i, j;</span><br><span class="line">   i = <span class="number">100</span>;</span><br><span class="line">   j = <span class="number">30</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DEBUG</span></span><br><span class="line">   <span class="built_in">cerr</span> &lt;&lt;<span class="string">"Trace: Inside main function"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">   <span class="comment">/* 这是注释部分 */</span></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; MKSTR(HELLO C++) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"> </span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt;<span class="string">"The minimum is "</span> &lt;&lt; MIN(i, j) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> DEBUG</span></span><br><span class="line">   <span class="built_in">cerr</span> &lt;&lt;<span class="string">"Trace: Coming out of main function"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result</em></strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Trace: Inside main function</span><br><span class="line">The minimum is <span class="number">30</span></span><br><span class="line">Trace: Coming out of main function</span><br></pre></td></tr></table></figure>
+<h1 id="和-运算符"><a href="#和-运算符" class="headerlink" title="# 和 ## 运算符"></a><code>#</code> 和 <code>##</code> 运算符</h1><blockquote>
+<p><code>#</code> 和 <code>##</code> 预处理运算符在 C++ 和 ANSI/ISO C 中都是可用的。<code>#</code> 运算符会把 replacement-text 令牌转换为用引号引起来的字符串。</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">double</span> <span class="title">getVolume</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> length * breadth * height;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">setLength</span><span class="params">( <span class="keyword">double</span> len )</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">          length = len;</span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">setBreadth</span><span class="params">( <span class="keyword">double</span> bre )</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">          breadth = bre;</span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">setHeight</span><span class="params">( <span class="keyword">double</span> hei )</span></span></span><br><span class="line"><span class="function">      </span>&#123;</span><br><span class="line">          height = hei;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 重载 + 运算符，用于把两个 Box 对象相加</span></span><br><span class="line">      Box <span class="keyword">operator</span>+(<span class="keyword">const</span> Box&amp; b)</span><br><span class="line">      &#123;</span><br><span class="line">         Box box;</span><br><span class="line">         box.length = <span class="keyword">this</span>-&gt;length + b.length;</span><br><span class="line">         box.breadth = <span class="keyword">this</span>-&gt;breadth + b.breadth;</span><br><span class="line">         box.height = <span class="keyword">this</span>-&gt;height + b.height;</span><br><span class="line">         <span class="keyword">return</span> box;</span><br><span class="line">      &#125;</span><br><span class="line">   <span class="keyword">private</span>:</span><br><span class="line">      <span class="keyword">double</span> length;      <span class="comment">// 长度</span></span><br><span class="line">      <span class="keyword">double</span> breadth;     <span class="comment">// 宽度</span></span><br><span class="line">      <span class="keyword">double</span> height;      <span class="comment">// 高度</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 程序的主函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( )</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   Box Box1;                <span class="comment">// 声明 Box1，类型为 Box</span></span><br><span class="line">   Box Box2;                <span class="comment">// 声明 Box2，类型为 Box</span></span><br><span class="line">   Box Box3;                <span class="comment">// 声明 Box3，类型为 Box</span></span><br><span class="line">   <span class="keyword">double</span> volume = <span class="number">0.0</span>;     <span class="comment">// 把体积存储在该变量中</span></span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Box1 详述</span></span><br><span class="line">   Box1.setLength(<span class="number">6.0</span>); </span><br><span class="line">   Box1.setBreadth(<span class="number">7.0</span>); </span><br><span class="line">   Box1.setHeight(<span class="number">5.0</span>);</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Box2 详述</span></span><br><span class="line">   Box2.setLength(<span class="number">12.0</span>); </span><br><span class="line">   Box2.setBreadth(<span class="number">13.0</span>); </span><br><span class="line">   Box2.setHeight(<span class="number">10.0</span>);</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Box1 的体积</span></span><br><span class="line">   volume = Box1.getVolume();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"Volume of Box1 : "</span> &lt;&lt; volume &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Box2 的体积</span></span><br><span class="line">   volume = Box2.getVolume();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"Volume of Box2 : "</span> &lt;&lt; volume &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 把两个对象相加，得到 Box3</span></span><br><span class="line">   Box3 = Box1 + Box2;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// Box3 的体积</span></span><br><span class="line">   volume = Box3.getVolume();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"Volume of Box3 : "</span> &lt;&lt; volume &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em><strong>Result:</strong></em></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Volume of Box1 : <span class="number">210</span></span><br><span class="line">Volume of Box2 : <span class="number">1560</span></span><br><span class="line">Volume of Box3 : <span class="number">5400</span></span><br></pre></td></tr></table></figure>
-<h1 id="可重载运算符-不可重载运算符"><a href="#可重载运算符-不可重载运算符" class="headerlink" title="可重载运算符/不可重载运算符"></a>可重载运算符/不可重载运算符</h1><p>下面是可重载的运算符列表：<br><strong>下面用1代替|</strong></p>
+<p>  请看下面的宏定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"demo.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MKSTR( x ) #x</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello CMake。"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; MKSTR(HELLO C++) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result</em></strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hello CMake。</span><br><span class="line">HELLO C++</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+<p>让我们来看看它是如何工作的。不难理解，C++ 预处理器把下面这行：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; MKSTR(HELLO C++) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure></p>
+<p>转换成了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"HELLO C++"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<p><code>##</code> 运算符用于连接两个令牌。下面是一个实例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CONCAT( x, y )  x ## y</span></span><br></pre></td></tr></table></figure></p>
+<p>当 CONCAT 出现在程序中时，它的参数会被连接起来，并用来取代宏。例如，程序中 CONCAT(HELLO, C++) 会被替换为 “HELLO C++”，如下面实例所示。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> concat(a, b) a ## b</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> xy = <span class="number">100</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; concat(x, y);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result</em></strong></p>
+ <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span></span><br></pre></td></tr></table></figure>
+<p>让我们来看看它是如何工作的。不难理解，C++ 预处理器把下面这行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; concat(x, y);</span><br></pre></td></tr></table></figure>
+<p>转换成了：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; xy;</span><br></pre></td></tr></table></figure></p>
+<h1 id="C-中的预定义宏"><a href="#C-中的预定义宏" class="headerlink" title="C++ 中的预定义宏"></a>C++ 中的预定义宏</h1><blockquote>
+<p>C++ 提供了下表所示的一些预定义宏：</p>
+</blockquote>
 <table>
 <thead>
 <tr>
-<th>类型</th>
-<th>运算符</th>
+<th style="text-align:center">宏</th>
+<th style="text-align:center">描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>双目算术运算符</td>
-<td>+ (加)，-(减)，*(乘)，/(除)，% (取模)</td>
+<td style="text-align:center"><strong>LINE</strong></td>
+<td style="text-align:center">这会在程序编译时包含当前行号。</td>
 </tr>
 <tr>
-<td>关系运算符</td>
-<td>==(等于)，!= (不等于)，&lt; (小于)，&gt; (大于&gt;，&lt;=(小于等于)，&gt;=(大于等于)</td>
+<td style="text-align:center"><strong>FILE</strong></td>
+<td style="text-align:center">这会在程序编译时包含当前文件名。</td>
 </tr>
 <tr>
-<td>逻辑运算符</td>
-<td>11(逻辑或)，&amp;&amp;(逻辑与)，!(逻辑非)</td>
+<td style="text-align:center"><strong>DATE</strong></td>
+<td style="text-align:center">这会包含一个形式为 month/day/year 的字符串，它表示把源文件转换为目标代码的日期。</td>
 </tr>
 <tr>
-<td>单目运算符</td>
-<td>+ (正)，-(负)，*(指针)，&amp;(取地址)</td>
-</tr>
-<tr>
-<td>自增自减运算符</td>
-<td>++(自增)，–(自减)</td>
-</tr>
-<tr>
-<td>位运算符</td>
-<td>1(按位或)，&amp; (按位与)，~(按位取反)，^(按位异或),，&lt;&lt; (左移)，&gt;&gt;(右移)</td>
-</tr>
-<tr>
-<td>赋值运算符</td>
-<td>=, +=, -=, *=, /= , % = , &amp;=, 1=, ^=, &lt;&lt;=, &gt;&gt;=</td>
-</tr>
-<tr>
-<td>空间申请与释放</td>
-<td>new, delete, new[ ] , delete[]</td>
-</tr>
-<tr>
-<td>其他运算符</td>
-<td>()(函数调用)，-&gt;(成员访问)，,(逗号)，<a href="下标"></a></td>
+<td style="text-align:center"><strong>TIME</strong></td>
+<td style="text-align:center">这会包含一个形式为 hour:minute:second 的字符串，它表示程序被编译的时间。</td>
 </tr>
 </tbody>
 </table>
-<p>下面是不可重载的运算符列表：</p>
-<ul>
-<li><code>.</code>：成员访问运算符</li>
-<li><code>.*</code>, <code>-&gt;*</code>：成员指针访问运算符</li>
-<li><code>::</code>：域运算符</li>
-<li><code>sizeof：</code>长度运算符</li>
-<li><code>?:</code>：条件运算符</li>
-<li><code>#</code>： 预处理符号</li>
-</ul>
-<h1 id="值得注意的是"><a href="#值得注意的是" class="headerlink" title="值得注意的是:"></a>值得注意的是:</h1><blockquote>
-<p>1.运算重载符不可以改变语法结构。<br>2.运算重载符不可以改变操作数的个数。<br>3.运算重载符不可以改变优先级。<br>4.运算重载符不可以改变结合性。</p>
-</blockquote>
+<p>让我们看看上述这些宏的实例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// demo.cpp: 定义应用程序的入口点。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"demo.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> concat(a, b,c) a ## b ## c</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Value of __LINE__ : "</span> &lt;&lt; __LINE__ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Value of __FILE__ : "</span> &lt;&lt; __FILE__ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Value of __DATE__ : "</span> &lt;&lt; __DATE__ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Value of __TIME__ : "</span> &lt;&lt; __TIME__ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Result</em></strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Value of __LINE__ : <span class="number">12</span></span><br><span class="line">Value of __FILE__ : C:\Users\wb-trc409737\source\repos\demo\demo\demo.cpp</span><br><span class="line">Value of __DATE__ : Aug <span class="number">21</span> <span class="number">2018</span></span><br><span class="line">Value of __TIME__ : <span class="number">11</span>:<span class="number">18</span>:<span class="number">26</span></span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -580,8 +571,8 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/C-Inherit/" rel="next" title="C# 继承">
-                <i class="fa fa-chevron-left"></i> C# 继承
+              <a href="/C-template/" rel="next" title="C++ 模板">
+                <i class="fa fa-chevron-left"></i> C++ 模板
               </a>
             
           </div>
@@ -590,8 +581,8 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/C-friend/" rel="prev" title="C# 友元(友元函数、友元类和友元成员函数)">
-                C# 友元(友元函数、友元类和友元成员函数) <i class="fa fa-chevron-right"></i>
+              <a href="/C-Stream/" rel="prev" title="C++文件和流">
+                C++文件和流 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -762,7 +753,7 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-重载运算符和重载函数"><span class="nav-number">1.</span> <span class="nav-text">C++ 重载运算符和重载函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-中的函数重载"><span class="nav-number">2.</span> <span class="nav-text">C++ 中的函数重载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-中的运算符重载"><span class="nav-number">3.</span> <span class="nav-text">C++ 中的运算符重载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可重载运算符-不可重载运算符"><span class="nav-number">4.</span> <span class="nav-text">可重载运算符/不可重载运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值得注意的是"><span class="nav-number">5.</span> <span class="nav-text">值得注意的是:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#define-预处理"><span class="nav-number">2.</span> <span class="nav-text">define 预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参数宏"><span class="nav-number">3.</span> <span class="nav-text">参数宏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件编译"><span class="nav-number">4.</span> <span class="nav-text">条件编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#和-运算符"><span class="nav-number">5.</span> <span class="nav-text"># 和 ## 运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-中的预定义宏"><span class="nav-number">6.</span> <span class="nav-text">C++ 中的预定义宏</span></a></li></ol></div>
             
 
           </div>
