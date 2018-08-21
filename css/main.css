@@ -317,7 +317,7 @@ hr {
 blockquote {
   padding: 0 15px;
   color: #666;
-  border-left: 4px solid #ddd;
+  border-left: 4px solid rgba(0,191,142,0.18);
 }
 blockquote cite::before {
   content: "-";
@@ -2095,7 +2095,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #fffbff;
+  background: #2ffffc;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3332,15 +3332,15 @@ input::-moz-placeholder {
 }
 .post-body h1 {
   font-size: 1.6em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(0,191,142,0);
 }
 .post-body h2 {
   font-size: 1.45em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(0,191,142,0);
 }
 .post-body h3 {
   font-size: 1.3em;
-  border-bottom: 1px dotted #eee;
+  border-bottom: 1px solid rgba(0,191,142,0);
 }
 .post-body h4 {
   font-size: 1.2em;
