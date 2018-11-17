@@ -140,7 +140,7 @@
 <meta property="og:image" content="http://localhost:8000/andfix/12.png">
 <meta property="og:image" content="http://localhost:8000/andfix/13.png">
 <meta property="og:image" content="http://localhost:8000/andfix/14.png">
-<meta property="og:updated_time" content="2018-11-17T11:47:40.191Z">
+<meta property="og:updated_time" content="2018-11-17T11:55:30.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndFix 实现原理及手写实现">
 <meta name="twitter:description" content="实现原理什么是热修复热修复说白了就是”打补丁”，比如你们公司上线一个app，用户反应有重大bug,需要紧急修复。如果按照通常做法,那就是程序猿加班搞定bug,然后测试,重新打包并发布。这样带来的问题就是成本高,效率低。于是,热修复就应运而生.一般通过事先设定的接口从网上下载无Bug的代码来替换有Bug的代码。这样就省事多了,用户体验也好。目的：修复BUG 什么是增量更新？增量更新的关键在于如何理解">
@@ -515,8 +515,7 @@ viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; 
 </table>
 <h3 id="AndFix优点"><a href="#AndFix优点" class="headerlink" title="AndFix优点"></a>AndFix优点</h3><p>即时生效，无需重启App<br>修复包小<br>性能代价小<br>做的比较细腻 ，方法级别</p>
 <h3 id="AndFix缺点"><a href="#AndFix缺点" class="headerlink" title="AndFix缺点"></a>AndFix缺点</h3><p>兼容性差（AndFix对于虚拟机层操作，进入虚拟机中内存操作。Google工程师每次发布虚拟机版本，这个时候Andfix需要针对每个版本进行兼容。只要拿到Android源码，Andfix很好兼容的，主要兼容ArtMethod结构体）</p>
-<h3 id="AndFix-地址"><a href="#AndFix-地址" class="headerlink" title="AndFix 地址"></a>AndFix 地址</h3><p><a href="https://github.com/alibaba/AndFix" target="_blank" rel="noopener">https://github.com/alibaba/AndFix</a></p>
-<h3 id="APP异常定位"><a href="#APP异常定位" class="headerlink" title="APP异常定位"></a>APP异常定位</h3><p>1.声明变量 （×）</p>
+<h3 id="AndFix-地址"><a href="#AndFix-地址" class="headerlink" title="AndFix 地址"></a><a href="https://github.com/alibaba/AndFix" target="_blank" rel="noopener">AndFix 地址</a></h3><h3 id="APP异常定位"><a href="#APP异常定位" class="headerlink" title="APP异常定位"></a>APP异常定位</h3><p>1.声明变量 （×）</p>
 <p>2.构造方法或其他普通方法（√）</p>
 <blockquote>
 <p>我们都知道异常都是在方法内产生的，所以我们需要了解两个问题<br>  1.java方法是如何运行的？<br>  2.java方法如何被修复？</p>
