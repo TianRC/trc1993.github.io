@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #000; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "48940a15"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实现原理什么是热修复热修复说白了就是”打补丁”，比如你们公司上线一个app，用户反应有重大bug,需要紧急修复。如果按照通常做法,那就是程序猿加班搞定bug,然后测试,重新打包并发布。这样带来的问题就是成本高,效率低。于是,热修复就应运而生.一般通过事先设定的接口从网上下载无Bug的代码来替换有Bug的代码。这样就省事多了,用户体验也好。目的：修复BUG 什么是增量更新？增量更新的关键在于如何理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndFix 实现原理及手写实现">
+<meta property="og:url" content="http://localhost:8000/andfix/index.html">
+<meta property="og:site_name" content="TRC&#39;Blog">
+<meta property="og:description" content="实现原理什么是热修复热修复说白了就是”打补丁”，比如你们公司上线一个app，用户反应有重大bug,需要紧急修复。如果按照通常做法,那就是程序猿加班搞定bug,然后测试,重新打包并发布。这样带来的问题就是成本高,效率低。于是,热修复就应运而生.一般通过事先设定的接口从网上下载无Bug的代码来替换有Bug的代码。这样就省事多了,用户体验也好。目的：修复BUG 什么是增量更新？增量更新的关键在于如何理解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://localhost:8000/andfix/1.png">
+<meta property="og:image" content="http://localhost:8000/andfix/2.png">
+<meta property="og:image" content="http://localhost:8000/andfix/3.png">
+<meta property="og:image" content="http://localhost:8000/andfix/4.png">
+<meta property="og:image" content="http://localhost:8000/andfix/5.png">
+<meta property="og:image" content="http://localhost:8000/andfix/6.png">
+<meta property="og:image" content="http://localhost:8000/andfix/7.png">
+<meta property="og:image" content="http://localhost:8000/andfix/8.png">
+<meta property="og:image" content="http://localhost:8000/andfix/9.png">
+<meta property="og:image" content="http://localhost:8000/andfix/10.png">
+<meta property="og:image" content="http://localhost:8000/andfix/11.png">
+<meta property="og:image" content="http://localhost:8000/andfix/12.png">
+<meta property="og:image" content="http://localhost:8000/andfix/13.png">
+<meta property="og:image" content="http://localhost:8000/andfix/14.png">
+<meta property="og:updated_time" content="2018-11-17T11:47:40.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AndFix 实现原理及手写实现">
+<meta name="twitter:description" content="实现原理什么是热修复热修复说白了就是”打补丁”，比如你们公司上线一个app，用户反应有重大bug,需要紧急修复。如果按照通常做法,那就是程序猿加班搞定bug,然后测试,重新打包并发布。这样带来的问题就是成本高,效率低。于是,热修复就应运而生.一般通过事先设定的接口从网上下载无Bug的代码来替换有Bug的代码。这样就省事多了,用户体验也好。目的：修复BUG 什么是增量更新？增量更新的关键在于如何理解">
+<meta name="twitter:image" content="http://localhost:8000/andfix/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:8000/andfix/"/>
+
+
+
+
+
+  <title>AndFix 实现原理及手写实现 | TRC'Blog</title>
+  
+
+
+
+
+
+
+
+
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans" style="background:#FBFBFB">
+
+<script type="text/javascript"
+color="0, 215, 164" opacity='0.7' zIndex="-2" count="20" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+
+<a href="https://github.com/trc1993"
+class="github-corner"
+aria-label="View source on Github"><svg width="80" height="80"
+viewBox="0 0 250 250" style="fill:#00000000; color:#00d7a4; position: absolute; top: 2; border: 0; right: 0;
+" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm">
+</path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">TRC'Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block" href="/andfix/>
+    <link itemprop="mainEntityOfPage" href="http://localhost:8000/andfix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TianRongChuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw690/74131e53gy1fszc1qyxvkj20ft0fuq3p.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TRC'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AndFix 实现原理及手写实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T16:08:02+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><h2 id="什么是热修复"><a href="#什么是热修复" class="headerlink" title="什么是热修复"></a>什么是热修复</h2><p>热修复说白了就是”打补丁”，比如你们公司上线一个app，用户反应有重大bug,需要紧急修复。如果按照通<br>常做法,那就是程序猿加班搞定bug,然后测试,重新打包并发布。这样带来的问题就是成本高,效率低。于是,热<br>修复就应运而生.一般通过事先设定的接口从网上下载无Bug的代码来替换有Bug的代码。这样就省事多了,用<br>户体验也好。<br><strong>目的</strong>：修复BUG</p>
+<h2 id="什么是增量更新？"><a href="#什么是增量更新？" class="headerlink" title="什么是增量更新？"></a>什么是增量更新？</h2><p>增量更新的关键在于如何理解增量一词。来想想平时我们的开发过程，往往都是今天在昨天的基础上修改一些代码，app的更新也是类似的：往往都是在旧版本的app上进行修改。这样看来，增量更新就是原有app的基础上只更新发生变化的地方，其余保持原样。<br>与原来每次更新都要下载完整apk包的做法相比，这样做的好处显而易见：每次变化的地方总是比较少，因此更新包的体积就会小很多。比如“师父说”安装包的体积在6m左右，如果不采用增量更新，用户每次更新都需要下载大约6m左右的安装包，而采用增量更新这种方案之后每次只需要下载2m左右的更新包即可，相比原来做法大大减少了用户下载等待的时间。</p>
+<p><strong>目的：</strong>升级，添加新功能</p>
+<h2 id="两者相同点"><a href="#两者相同点" class="headerlink" title="两者相同点"></a>两者相同点</h2><p>都需要下载文件，（修复包，差分包）<br>热修复框架的对比<br><strong>热修复框架的种类繁多，按照公司团队划分主要有以下几种：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>成员</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阿里系</td>
+<td>AndFix、Dexposed、阿里百川、Sophix</td>
+</tr>
+<tr>
+<td>腾讯系</td>
+<td>微信的Tinker、QQ空间的超级补丁、手机QQ的QFix</td>
+</tr>
+<tr>
+<td>知名公司</td>
+<td>美团的Robust、饿了么的Amigo、美丽说蘑菇街的Aceso</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>RocooFix、Nuwa、AnoleFix</td>
+</tr>
+</tbody>
+</table>
+<p>虽然热修复框架很多，但热修复框架的核心技术主要有三类，分别是代码修复、资源修复和动态链接库修复，其中每个核心技术又有很多不同的技术方案，每个技术方案又有不同的实现，另外这些热修复框架仍在不断的更新迭代中，可见热修复框架的技术实现是繁多可变的。作为开发需需要了解这些技术方案的基本原理，这样就可以以不变应万变。</p>
+<p><strong>部分热修复框架的对比如下表所示</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>AndFix</th>
+<th>Tinker/Amigo</th>
+<th>QQ空间</th>
+<th>Robust/Aceso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>即时生效</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>方法替换</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>类替换</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>类结构修改</td>
+<td>否</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>资源替换</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>so替换</td>
+<td>否</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>支持gradle</td>
+<td>否</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>支持ART</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="AndFix优点"><a href="#AndFix优点" class="headerlink" title="AndFix优点"></a>AndFix优点</h3><p>即时生效，无需重启App<br>修复包小<br>性能代价小<br>做的比较细腻 ，方法级别</p>
+<h3 id="AndFix缺点"><a href="#AndFix缺点" class="headerlink" title="AndFix缺点"></a>AndFix缺点</h3><p>兼容性差（AndFix对于虚拟机层操作，进入虚拟机中内存操作。Google工程师每次发布虚拟机版本，这个时候Andfix需要针对每个版本进行兼容。只要拿到Android源码，Andfix很好兼容的，主要兼容ArtMethod结构体）</p>
+<h3 id="AndFix-地址"><a href="#AndFix-地址" class="headerlink" title="AndFix 地址"></a>AndFix 地址</h3><p><a href="https://github.com/alibaba/AndFix" target="_blank" rel="noopener">https://github.com/alibaba/AndFix</a></p>
+<h3 id="APP异常定位"><a href="#APP异常定位" class="headerlink" title="APP异常定位"></a>APP异常定位</h3><p>1.声明变量 （×）</p>
+<p>2.构造方法或其他普通方法（√）</p>
+<blockquote>
+<p>我们都知道异常都是在方法内产生的，所以我们需要了解两个问题<br>  1.java方法是如何运行的？<br>  2.java方法如何被修复？</p>
+</blockquote>
+<h2 id="java运行方式"><a href="#java运行方式" class="headerlink" title="java运行方式"></a>java运行方式</h2><blockquote>
+<p>java方法脱离虚拟机能不能运行？  </p>
+</blockquote>
+<p>java是可以跨平台的，但是虚拟机不能跨平台的   Windows  Linux</p>
+<blockquote>
+<p>这里可以这样理解，java和虚拟机的关系，可以比作html和浏览器的关系</p>
+</blockquote>
+<p>所以，java文件脱离虚拟机是不能运行的。</p>
+<h3 id="Android虚拟机"><a href="#Android虚拟机" class="headerlink" title="Android虚拟机"></a>Android虚拟机</h3><p>Android虚拟机第一个执行哪个java类？</p>
+<p>ZygoteInit.java<br>Android源码中的路径<br>/frameworks/base/core/java/com/android/internal/os/ZygoteInit.java</p>
+<p>虚拟机执行一个可执行文件（ZygoteInit.java），那么它会分配一个进程区，称为zygote进程。zygote进程是个受精卵进程<br><img src="/andfix/1.png" alt=""></p>
+<blockquote>
+<p>adb shell ps</p>
+</blockquote>
+<p>结论：所有app进程都是zygote进程孵化的<br>当用户点击App时候，最先加载到内存中的Application.class（App中的类）       存放在data/app/包名/base.apk</p>
+<p>zygote 伪代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">Application application = <span class="keyword">new</span> Application();</span><br><span class="line">application.onCreate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Application application</strong> 声明的时候会在方法区定义一个int 类型的符号变量<br><img src="/andfix/2.png" alt=""><br>在new 或者反射的时候会加载进来<br> new Application();<br>方法区加载class进来的时候，会分成两部分，第一部分把成员变量放到一张表里面，第二部分把所有的方法放到一张表里面。方法的执行会有方法的执行入口<br>java文件是执行在虚拟机中，虚拟机是由C/C++开发的，方法最终也是C/C++执行。</p>
+<p>在堆区开辟一个空间，存放对象。<br><img src="/andfix/3.png" alt=""><br>Application.onCrete();<br><img src="/andfix/4.png" alt=""><br><img src="/andfix/5.png" alt=""><br>java方法如何被修复？<br><img src="/andfix/6.png" alt=""></p>
+<h2 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h2><p>目录结构<br><img src="/andfix/7.png" alt=""><br><strong>MainActivity：</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        Caclutor caclutor = <span class="keyword">new</span> Caclutor();</span><br><span class="line">        caclutor.test(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fix</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        DexManager dexManager = <span class="keyword">new</span> DexManager();</span><br><span class="line">        dexManager.setContext(<span class="keyword">this</span>);</span><br><span class="line">        dexManager.load(<span class="keyword">new</span> File(Environment.getExternalStorageDirectory(), <span class="string">"out.dex"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>calculator:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"出异常了"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Replace:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Replace &#123;</span><br><span class="line">    <span class="function">String <span class="title">clazz</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>DexManager:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DexManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Context context;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.loadLibrary(<span class="string">"native-lib"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContext</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.context = context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 参数</span></span><br><span class="line"><span class="comment">             *sourcePathName     包含”classes.dex”的Jar或者APK文件。(将来可能会扩展支持"raw DEX"。)</span></span><br><span class="line"><span class="comment">             *outputPathName     保存优化过的DEX数据的文件。</span></span><br><span class="line"><span class="comment">             *flags        打开可选功能</span></span><br><span class="line"><span class="comment">             *返回值</span></span><br><span class="line"><span class="comment">             *一个新的，或者先前已经打开的DexFile。</span></span><br><span class="line"><span class="comment">             *异常</span></span><br><span class="line"><span class="comment">             *IOException     无法打开输入或输出文件。</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            DexFile dexFile = DexFile.loadDex(file.getAbsolutePath(),</span><br><span class="line">                    <span class="keyword">new</span> File(context.getCacheDir(), <span class="string">"opt"</span>).getAbsolutePath(),</span><br><span class="line">                    Context.MODE_PRIVATE);</span><br><span class="line">            <span class="comment">//枚举DEX文件里面的类名</span></span><br><span class="line">            Enumeration&lt;String&gt; entry= dexFile.entries();</span><br><span class="line">            <span class="keyword">while</span> (entry.hasMoreElements()) &#123;</span><br><span class="line"><span class="comment">//                全类名</span></span><br><span class="line">                String className = entry.nextElement();</span><br><span class="line">                <span class="comment">//Class.forName(className); 网络下载的文件不能通过反射找到</span></span><br><span class="line">                Class realClazz=dexFile.loadClass(className, context.getClassLoader());</span><br><span class="line">                <span class="keyword">if</span> (realClazz != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    fixClass(realClazz);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fixClass</span><span class="params">(Class realClazz)</span> </span>&#123;</span><br><span class="line"><span class="comment">//加载方法 Method</span></span><br><span class="line">        Method[] methods = realClazz.getMethods();</span><br><span class="line">        <span class="keyword">for</span> (Method rightMethod : methods) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            Replace replace = rightMethod.getAnnotation(Replace.class);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (replace == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            String clazzName = replace.clazz();</span><br><span class="line">            String methodName = replace.method();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Class wrongClazz=Class.forName(clazzName);</span><br><span class="line">                <span class="comment">//Method     right       wrong</span></span><br><span class="line">                Method wrongMethod=wrongClazz.getDeclaredMethod(methodName, rightMethod.getParameterTypes());</span><br><span class="line">                replace(wrongMethod, rightMethod);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span>  <span class="keyword">void</span> <span class="title">replace</span><span class="params">(Method wrongMethod, Method rightMethod)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>native-lib.cpp</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"art_method.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">JNIEXPORT <span class="keyword">void</span> JNICALL</span><br><span class="line">Java_com_dongnao_andfix_DexManager_replace(JNIEnv *env, jobject instance, jobject wrongMethod,</span><br><span class="line">                                           jobject rightMethod) &#123;</span><br><span class="line"><span class="comment">//        ArtMethod  -----&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    art::mirror::ArtMethod *wrong= <span class="keyword">reinterpret_cast</span>&lt;art::mirror::ArtMethod *&gt;(env-&gt;FromReflectedMethod(wrongMethod));</span><br><span class="line">    art::mirror::ArtMethod *right= <span class="keyword">reinterpret_cast</span>&lt;art::mirror::ArtMethod *&gt;(env-&gt;FromReflectedMethod(rightMethod));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    wrong-&gt;declaring_class_ = right-&gt;declaring_class_;</span><br><span class="line">    wrong-&gt;dex_cache_resolved_methods_ = right-&gt;dex_cache_resolved_methods_;</span><br><span class="line">    wrong-&gt;access_flags_ = right-&gt;access_flags_;</span><br><span class="line">    wrong-&gt;dex_cache_resolved_types_ = right-&gt;dex_cache_resolved_types_;</span><br><span class="line">    wrong-&gt;dex_code_item_offset_ = right-&gt;dex_code_item_offset_;</span><br><span class="line">    wrong-&gt;dex_method_index_ = right-&gt;dex_method_index_;</span><br><span class="line">    wrong-&gt;method_index_ = right-&gt;method_index_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>env-&gt;FromReflectedMethod()获取方法ArtMethod<br>java的反射也是使用native方法来进行反射的<br><img src="/andfix/8.png" alt=""></p>
+<p>art/runtime/art_method.h<br>Android 源码 <a href="https://pan.baidu.com/s/15bHO1DAKpLNQpocXHUlvrw" target="_blank" rel="noopener">https://pan.baidu.com/s/15bHO1DAKpLNQpocXHUlvrw</a><br><img src="/andfix/9.png" alt=""><br><strong>art_method.h</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> art&#123;</span><br><span class="line">    <span class="keyword">namespace</span> mirror&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Object</span>&#123;</span></span><br><span class="line">            <span class="comment">// The Class representing the type of the object.</span></span><br><span class="line">            <span class="keyword">uint32_t</span> klass_;</span><br><span class="line">            <span class="comment">// Monitor and hash code information.</span></span><br><span class="line">            <span class="keyword">uint32_t</span> monitor_;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">ArtMethod</span>:</span><span class="keyword">public</span> Object&#123;</span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">            <span class="comment">// 当前方法修饰符 （public private）</span></span><br><span class="line">            <span class="keyword">uint32_t</span> access_flags_;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Dex file fields. The defining dex file is available via declaring_class_-&gt;dex_cache_ */</span></span><br><span class="line">            <span class="comment">// 函数入口</span></span><br><span class="line">            <span class="keyword">uint32_t</span> dex_code_item_offset_;</span><br><span class="line">            <span class="comment">// 方法索引</span></span><br><span class="line">            <span class="keyword">uint32_t</span> dex_method_index_;</span><br><span class="line">            <span class="comment">/* End of dex file fields. */</span></span><br><span class="line">            <span class="comment">// Entry within a dispatch table for this method. For static/direct methods the index is into</span></span><br><span class="line">            <span class="comment">// the declaringClass.directMethods, for virtual methods the vtable and for interface methods the</span></span><br><span class="line">            <span class="comment">// ifTable.</span></span><br><span class="line">            <span class="comment">//方法表的索引</span></span><br><span class="line">            <span class="keyword">uint32_t</span> method_index_;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">// Short cuts to declaring_class_-&gt;dex_cache_ member for fast compiled code access.</span></span><br><span class="line">            <span class="keyword">uint32_t</span> dex_cache_resolved_methods_;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">// Short cuts to declaring_class_-&gt;dex_cache_ member for fast compiled code access.</span></span><br><span class="line">            <span class="keyword">uint32_t</span> dex_cache_resolved_types_;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">// Field order required by test "ValidateFieldOrderOfJavaCppUnionClasses".</span></span><br><span class="line">            <span class="comment">// The class we are a part of.</span></span><br><span class="line">            <span class="keyword">uint32_t</span> declaring_class_;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来修复<br>fix/calculator:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Replace</span>(clazz = <span class="string">"com.tianrongchuang.andfix.Calculator"</span>, method = <span class="string">"test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        Toast.makeText(context, <span class="string">"修复了"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>目录结构<br><img src="/andfix/10.png" alt=""><br>Rebuild后将com文件夹提出来，将不是修复文件删除<br><img src="/andfix/11.png" alt=""><br>打包Dex文件使用dx.bat 工具打包<br>工具目录：Sdk\build-tools\23.0.0\dx.bat</p>
+<blockquote>
+<p>–dex –output C:\Users\wb-trc409737\Desktop\dx\out.dex C:\Users\wb-trc40<br>  9737\Desktop\dx</p>
+</blockquote>
+<p><img src="/andfix/12.png" alt=""><br>模仿网络下载，将out.dex放到sd根目录使用。</p>
+<h2 id="AndFix优化方案"><a href="#AndFix优化方案" class="headerlink" title="AndFix优化方案"></a>AndFix优化方案</h2><p>那么有没有什么替换方法能够忽略对底层ArtMethod的结构的依赖呢？<br>我们发现，AndFix这样native层面替换思路，其实就是替换ArtMethod的所有成员。那么，我们不替换ArtMethod具体的各个成员字段，而是直接把ArtMethod的作为整体进行替换，这样不是就可以了吗？<br>也就是把原先这样的逐一替换：<br><img src="/andfix/13.png" alt=""><br>更改为整体替换：<br><img src="/andfix/14.png" alt=""><br>因此Andfix这一系列繁琐的替换:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wrong-&gt;declaring_class_ = right-&gt;declaring_class_;</span><br><span class="line">wrong-&gt;dex_cache_resolved_methods_ = right-&gt;dex_cache_resolved_methods_;</span><br><span class="line">wrong-&gt;access_flags_ = right-&gt;access_flags_;</span><br><span class="line">wrong-&gt;dex_cache_resolved_types_ = right-&gt;dex_cache_resolved_types_;</span><br><span class="line">wrong-&gt;dex_code_item_offset_ = right-&gt;dex_code_item_offset_;</span><br><span class="line">wrong-&gt;dex_method_index_ = right-&gt;dex_method_index_;</span><br><span class="line">wrong-&gt;method_index_ = right-&gt;method_index_;</span><br></pre></td></tr></table></figure></p>
+<p>更改为：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memcpy</span>(wrong,right, <span class="keyword">sizeof</span>(ArtMethod));</span><br></pre></td></tr></table></figure></p>
+<p>改进版AndFix即Sophix热修复原理</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>哈哈，看着办吧！</div>
+  <div id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </div>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="TianRongChuang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="TianRongChuang 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+    <br/>
+        <div style="color: #000;font-size:14px;">ps：评论需翻墙，右下角也可以联系我哦。</div>
+        <div style="text-align:center;color: #000;font-size:14px;">-------------本文结束感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/C-Stream/" rel="next" title="C++文件和流">
+                <i class="fa fa-chevron-left"></i> C++文件和流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODk1Mi8xNTQ4MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://wx2.sinaimg.cn/mw690/74131e53gy1fszc1qyxvkj20ft0fuq3p.jpg"
+                alt="TianRongChuang" />
+            
+              <p class="site-author-name" itemprop="name">TianRongChuang</p>
+              <p class="site-description motion-element" itemprop="description">我的实力已经不允许我在这么低调了，奥！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/trc1993" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1129440815@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/tianrongchuang/profile?rightmod=1&wvr=6&mod=personnumber" target="_blank" title="weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/tianrongchuang/profile?rightmod=1&wvr=6&mod=personnumber" target="_blank" title="TRC">
+                      
+                        <i class="fa fa-fw fa-address-book"></i>TRC</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现原理"><span class="nav-number">1.</span> <span class="nav-text">实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是热修复"><span class="nav-number">1.1.</span> <span class="nav-text">什么是热修复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是增量更新？"><span class="nav-number">1.2.</span> <span class="nav-text">什么是增量更新？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两者相同点"><span class="nav-number">1.3.</span> <span class="nav-text">两者相同点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AndFix优点"><span class="nav-number">1.3.1.</span> <span class="nav-text">AndFix优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AndFix缺点"><span class="nav-number">1.3.2.</span> <span class="nav-text">AndFix缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AndFix-地址"><span class="nav-number">1.3.3.</span> <span class="nav-text">AndFix 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APP异常定位"><span class="nav-number">1.3.4.</span> <span class="nav-text">APP异常定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java运行方式"><span class="nav-number">1.4.</span> <span class="nav-text">java运行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android虚拟机"><span class="nav-number">1.4.1.</span> <span class="nav-text">Android虚拟机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现"><span class="nav-number">1.5.</span> <span class="nav-text">简单实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AndFix优化方案"><span class="nav-number">1.6.</span> <span class="nav-text">AndFix优化方案</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TianRongChuang</span>
+
+  
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<!-- <script type="text/javascript" src="/js/src/love.js"></script> -->
+
+
